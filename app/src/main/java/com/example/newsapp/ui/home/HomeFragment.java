@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment implements OnNewsClick {
 
     @Override
     public void onNewsClick(int position) {
-        HomeFragmentDirections.ActionHomeFragmentToDetailsFragment action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(articles[position].getTitle(), articles[position].getContent(), articles[position].getUrlToImage());
+        HomeFragmentDirections.ActionHomeFragmentToDetailsFragment action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(articles[position].getTitle(), articles[position].getDescription(), articles[position].getUrlToImage());
         Navigation.findNavController(getView()).navigate(action);
     }
 

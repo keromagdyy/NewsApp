@@ -99,7 +99,7 @@ public class SearchFragment extends Fragment implements OnNewsClick {
 
     @Override
     public void onNewsClick(int position) {
-        SearchFragmentDirections.ActionSearchFragmentToDetailsFragment action = SearchFragmentDirections.actionSearchFragmentToDetailsFragment(articles[position].getTitle(), articles[position].getContent(), articles[position].getUrlToImage());
+        SearchFragmentDirections.ActionSearchFragmentToDetailsFragment action = SearchFragmentDirections.actionSearchFragmentToDetailsFragment(articles[position].getTitle(), articles[position].getDescription(), articles[position].getUrlToImage());
         Navigation.findNavController(getView()).navigate(action);
     }
 
