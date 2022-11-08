@@ -16,6 +16,7 @@ import com.example.newsapp.R;
 import com.example.newsapp.data.model.Article;
 import com.example.newsapp.data.sharedPreferences.NewsSP;
 import com.example.newsapp.databinding.ItemNewsBinding;
+import com.example.newsapp.ui.interfaces.OnBookmarkClick;
 import com.example.newsapp.ui.interfaces.OnNewsClick;
 
 import java.text.DateFormat;
@@ -30,13 +31,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     Context context;
     ArrayList<Article> article;
     OnNewsClick onNewsClick;
+    OnBookmarkClick onBookmarkClick;
 
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setNewsList(Context context, ArrayList<Article> article, OnNewsClick onNewsClick) {
+    public void setNewsList(Context context, ArrayList<Article> article, OnNewsClick onNewsClick, OnBookmarkClick onBookmarkClick) {
         this.context = context;
         this.article = article;
         this.onNewsClick = onNewsClick;
+        this.onBookmarkClick = onBookmarkClick;
         notifyDataSetChanged();
     }
 
@@ -50,7 +53,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        holder.bindView(context, article.get(position), onNewsClick);
+        holder.bindView(context, article.get(position), onNewsClick, onBookmarkClick);
     }
 
     @Override
@@ -70,7 +73,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             newsSP = new NewsSP(binding.getRoot().getContext());
         }
 
-        public void bindView(Context context, Article article, OnNewsClick onNewsClick) {
+        public void bindView(Context context, Article article, OnNewsClick onNewsClick, OnBookmarkClick onBookmarkClick) {
 
             String publishAt = dateFormatted(article.getPublishedAt());
 
@@ -91,10 +94,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             binding.imgBookmark.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    onBookmarkClick.onBookmarkClick(getAdapterPosition());
                     int i = newsSP.checkNewsSP(article);
                     bookmarkMarked();
                     if (i  > -1) {
-                        removeAt(i);
+//                        removeAt(i);
                     }
                 }
             });

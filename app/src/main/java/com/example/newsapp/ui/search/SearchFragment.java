@@ -19,6 +19,7 @@ import android.widget.SearchView;
 import com.example.newsapp.R;
 import com.example.newsapp.data.model.Article;
 import com.example.newsapp.databinding.FragmentSearchBinding;
+import com.example.newsapp.ui.interfaces.OnBookmarkClick;
 import com.example.newsapp.ui.main.NewsAdapter;
 import com.example.newsapp.ui.main.NewsViewModel;
 import com.example.newsapp.ui.interfaces.OnNewsClick;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
-public class SearchFragment extends Fragment implements OnNewsClick {
+public class SearchFragment extends Fragment implements OnNewsClick, OnBookmarkClick {
     FragmentSearchBinding binding;
     NewsViewModel newsViewModel;
     NewsAdapter newsAdapter = new NewsAdapter();
@@ -82,7 +83,7 @@ public class SearchFragment extends Fragment implements OnNewsClick {
                     ArrayList<Article> articleList = new ArrayList();
                     Collections.addAll(articleList, articles);
 
-                    newsAdapter.setNewsList(getContext(), articleList, SearchFragment.this);
+                    newsAdapter.setNewsList(getContext(), articleList, SearchFragment.this, SearchFragment.this);
                     binding.recyclerView.setAdapter(newsAdapter);
                     newsAdapter.notifyDataSetChanged();
                     if (articles.length == 0) {
@@ -104,4 +105,8 @@ public class SearchFragment extends Fragment implements OnNewsClick {
     }
 
 
+    @Override
+    public void onBookmarkClick(int position) {
+
+    }
 }

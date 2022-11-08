@@ -53,6 +53,7 @@ public class DetailsFragment extends Fragment {
 
 
 
+
         return binding.getRoot();
     }
 

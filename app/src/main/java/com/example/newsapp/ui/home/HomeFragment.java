@@ -27,6 +27,7 @@ import com.example.newsapp.R;
 import com.example.newsapp.data.model.Article;
 import com.example.newsapp.data.sharedPreferences.NewsSP;
 import com.example.newsapp.databinding.FragmentHomeBinding;
+import com.example.newsapp.ui.interfaces.OnBookmarkClick;
 import com.example.newsapp.ui.interfaces.OnNewsClick;
 import com.example.newsapp.ui.main.NewsAdapter;
 import com.example.newsapp.ui.main.NewsViewModel;
@@ -34,7 +35,7 @@ import com.example.newsapp.ui.main.NewsViewModel;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class HomeFragment extends Fragment implements OnNewsClick {
+public class HomeFragment extends Fragment implements OnNewsClick, OnBookmarkClick {
     FragmentHomeBinding binding;
     NewsViewModel newsViewModel;
     NewsAdapter newsAdapter = new NewsAdapter();
@@ -90,7 +91,7 @@ public class HomeFragment extends Fragment implements OnNewsClick {
                 ArrayList<Article> articleList = new ArrayList();
                 Collections.addAll(articleList, articles);
 
-                newsAdapter.setNewsList(getContext(), articleList, HomeFragment.this);
+                newsAdapter.setNewsList(getContext(), articleList, HomeFragment.this, HomeFragment.this);
                 binding.recyclerView.setAdapter(newsAdapter);
 
                 Log.d("onChangedFun", "onChanged: " + articles[0].getTitle());
@@ -148,4 +149,8 @@ public class HomeFragment extends Fragment implements OnNewsClick {
 
     }
 
+    @Override
+    public void onBookmarkClick(int position) {
+
+    }
 }

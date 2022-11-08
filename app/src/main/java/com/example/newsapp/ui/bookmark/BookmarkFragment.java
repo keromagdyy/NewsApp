@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.newsapp.R;
 import com.example.newsapp.data.model.Article;
 import com.example.newsapp.databinding.FragmentBookmarkBinding;
+import com.example.newsapp.ui.interfaces.OnBookmarkClick;
 import com.example.newsapp.ui.main.NewsAdapter;
 import com.example.newsapp.ui.interfaces.OnNewsClick;
 import com.google.gson.Gson;
@@ -25,7 +26,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class BookmarkFragment extends Fragment implements OnNewsClick {
+public class BookmarkFragment extends Fragment implements OnNewsClick, OnBookmarkClick {
     FragmentBookmarkBinding binding;
     NewsAdapter newsAdapter = new NewsAdapter();
     SharedPreferences sharedPreferences;
@@ -59,7 +60,7 @@ public class BookmarkFragment extends Fragment implements OnNewsClick {
         ArrayList<Article> articleList = new ArrayList();
         Collections.addAll(articleList, articles);
 
-        newsAdapter.setNewsList(getContext(), articleList, BookmarkFragment.this);
+        newsAdapter.setNewsList(getContext(), articleList, BookmarkFragment.this, BookmarkFragment.this);
         binding.recyclerView.setAdapter(newsAdapter);
 
         return binding.getRoot();
@@ -73,4 +74,8 @@ public class BookmarkFragment extends Fragment implements OnNewsClick {
 
     }
 
+    @Override
+    public void onBookmarkClick(int position) {
+        newsAdapter.removeAt(position);
+    }
 }
