@@ -53,6 +53,10 @@ public class NewsSP {
 
         ArrayList<Article> articlesList = gson.fromJson(json, type);
 
+        if (articlesList == null) {
+            articlesList = new ArrayList<>();
+        }
+
         return articlesList;
     }
 
